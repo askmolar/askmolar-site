@@ -419,7 +419,7 @@ async function checkForPaidSession() {
   const adminCode = params.get('admin');
 
   // Admin bypass — secret code skips payment verification
-  if (adminCode === 'Siena#2121') {
+  if (adminCode === 'Siena2121') {
     window.history.replaceState({}, document.title, '/');
     currentType = type;
     formData = {};
