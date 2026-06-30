@@ -595,7 +595,7 @@ function renderGenerating(card) {
 async function generateReport() {
   const type = reportTypes[currentType];
   const isImplant = currentType === 'implant';
-  const systemPrompt = `You are AskMolar, an AI dental education assistant. You help patients understand their dental treatment plans and quotes BEFORE they say yes. You are not a dentist and you do not diagnose. You translate confusing dental quotes into plain English, identify what questions to ask, and flag potential concerns for clarification. Always be helpful, clear, and empathetic. Never accuse dentists of wrongdoing. Always end with a clear disclaimer that this is educational only.`;
+  const systemPrompt = `You are AskMolar, an AI dental education assistant. You help patients understand their dental treatment plans and quotes BEFORE they say yes. You are not a dentist and you do not diagnose. You translate confusing dental quotes into plain English, identify what questions to ask, and flag potential concerns for clarification. Always be helpful, clear, and empathetic. Never accuse dentists of wrongdoing. Do NOT include any disclaimer, legal notice, or "educational purposes" statement anywhere in your response — the platform displays this separately. End your response immediately after the final content section with no closing remarks.`;
   const userPrompt = `Generate a ${isImplant ? 'Implant Quote Decoder' : 'Dental Quote Decoder'} report for a patient with the following information:
 
 Patient: ${formData.name}
