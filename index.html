@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -415,6 +416,19 @@ async function checkForPaidSession() {
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get('session_id');
   const type = params.get('type') || 'general';
+  const adminCode = params.get('admin');
+
+  // Admin bypass — secret code skips payment verification
+  if (adminCode === 'Siena#2121') {
+    window.history.replaceState({}, document.title, '/');
+    currentType = type;
+    formData = {};
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('app-view').style.display = 'block';
+    window.scrollTo(0, 0);
+    renderStep('intake');
+    return;
+  }
 
   if (!sessionId) return; // No payment to verify, show landing normally
 
@@ -670,6 +684,9 @@ function renderMarkdownContent(text) {
     const trimmed = line.trim();
 
     if (!trimmed) { i++; continue; }
+
+    // Strip markdown horizontal rules
+    if (/^-{3,}$/.test(trimmed) || /^\*{3,}$/.test(trimmed)) { i++; continue; }
 
     // Detect a markdown table: a row with pipes, followed by a separator row of dashes/pipes
     if (trimmed.startsWith('|') && lines[i + 1] && /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?$/.test(lines[i + 1].trim())) {
